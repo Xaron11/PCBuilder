@@ -19,6 +19,7 @@
 .DS_Store
 *.pem
 .python-version
+api/__pycache__
 
 # debug
 npm-debug.log*
