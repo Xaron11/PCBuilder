@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, JSONResponse
+from pcpartpicker import API
+import json
+import nest_asyncio
 
-# HTML_404_PAGE = "<h1>404</h1>"
+nest_asyncio.apply()
+# HTML_404_PAGE = "<h1>404 - Not found</h1>"
 
 
 # async def not_found(request, exc):
@@ -20,25 +26,37 @@ app = FastAPI(
     docs_url='/api',
     openapi_url='/api/openapi.json',
     redoc_url=None,
-    # exception_handlers=exceptions,
+    #    exception_handlers=exceptions,
 )
 
+origins = ["*"]
 
-@app.get('/')
-async def root():
-    return {'message': 'root!'}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-
-@app.get('/api')
-async def api():
-    return {'message': 'api root!'}
-
-
-@app.get('/api/index')
-async def index():
-    return {'message': 'index!'}
+api = API()
 
 
-@app.get('/api/hello')
-async def hello():
-    return {'message': 'hello!'}
+@app.get('/api/parts')
+async def cpu():
+    return api.supported_parts
+
+
+@app.get('/api/parts/{part}')
+async def cpu(part: str):
+    if part not in api.supported_parts:
+        raise HTTPException(status_code=404, detail="Part not found")
+    data = api.retrieve(part)
+    data = json.loads(data.to_json())
+    return data
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("index:app", host="127.0.0.1", port=8000, reload=True)
