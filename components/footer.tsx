@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { createStyles, Anchor, Group, ActionIcon } from '@mantine/core';
+import { createStyles, Anchor, Group, ActionIcon, Footer } from '@mantine/core';
 import { BrandTwitter, BrandYoutube, BrandInstagram } from 'tabler-icons-react';
 import Image from 'next/image';
 
@@ -33,7 +33,7 @@ interface FooterProps {
   links: { link: string; label: string }[];
 }
 
-export default function Footer({ links }: FooterProps) {
+export default function ResponsiveFooter({ links }: FooterProps) {
   const { classes } = useStyles();
   const items = links.map((link) => (
     <Link key={link.label} href={link.link}>
@@ -44,7 +44,7 @@ export default function Footer({ links }: FooterProps) {
   ));
 
   return (
-    <div className={classes.footer}>
+    <Footer height={60} className={classes.footer}>
       <div className={classes.inner}>
         <Link href="/">
           <a>
@@ -65,6 +65,6 @@ export default function Footer({ links }: FooterProps) {
           </ActionIcon>
         </Group>
       </div>
-    </div>
+    </Footer>
   );
 }
