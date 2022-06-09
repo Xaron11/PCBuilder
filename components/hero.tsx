@@ -1,30 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
-import { createStyles, Container, Text, Button, Group, useMantineTheme } from '@mantine/core';
+import { createStyles, Container, Text, Title, Button, Group, useMantineTheme } from '@mantine/core';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
-    // position: 'relative',
-    // boxSizing: 'border-box',
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
   },
 
   inner: {
-    // position: 'relative',
-    //paddingTop: 200,
-    paddingTop: 100,
-    paddingBottom: 120,
+    paddingTop: 200,
+    paddingBottom: 180,
 
     [BREAKPOINT]: {
-      paddingBottom: 80,
-      paddingTop: 80,
+      paddingTop: 180,
+      paddingBottom: 180,
     },
   },
 
   title: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontSize: 62,
     fontWeight: 900,
     lineHeight: 1.1,
@@ -85,13 +80,13 @@ export default function Hero() {
   return (
     <div className={classes.wrapper}>
       <Container size={700} className={classes.inner}>
-        <h1 className={classes.title}>
+        <Title className={classes.title}>
           Zbuduj{' '}
           <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} inherit>
             własny
           </Text>{' '}
           PC
-        </h1>
+        </Title>
 
         <Text className={classes.description} color="dimmed">
           Nasz kreator umożliwia ci łatwy wybór komponentów do twojego nowego komputera.
