@@ -22,6 +22,11 @@ function MyApp(props: AppProps & { colorScheme: ColorScheme }) {
       <Head>
         <title>PC Builder</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="description"
+          content="PC Builder to narzędzie, które sprawia, że budowa komputera jest łatwiejsza niż kiedykolwiek."
+        />
+        <meta name="author" content="Dawid Kaczmarzyk, kl. 3gSP 2021/2022, gr. 1" />
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={myTheme} withGlobalStyles withNormalizeCSS>
