@@ -5,7 +5,6 @@ import { ContactIconsList } from './contactIcons';
 const useStyles = createStyles((theme) => ({
   wrapper: {
     minHeight: 400,
-    boxSizing: 'border-box',
     backgroundImage: `linear-gradient(-60deg, ${theme.colors[theme.primaryColor][4]} 0%, ${
       theme.colors[theme.primaryColor][7]
     } 100%)`,
@@ -19,12 +18,12 @@ const useStyles = createStyles((theme) => ({
 
   title: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    color: theme.colorScheme === 'dark' ? theme.colors.gray[3] : theme.white,
+    color: theme.colorScheme === 'dark' ? theme.colors.gray[1] : theme.white,
     lineHeight: 1,
   },
 
   description: {
-    color: theme.colorScheme === 'dark' ? theme.colors.gray[3] : theme.white,
+    color: theme.colorScheme === 'dark' ? theme.colors.gray[2] : theme.white,
     maxWidth: 300,
 
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
