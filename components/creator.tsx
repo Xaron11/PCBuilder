@@ -12,7 +12,6 @@ import {
   Paper,
   Stack,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { Plus } from 'tabler-icons-react';
 
 const BREAKPOINT = '@media (max-width: 755px)';
@@ -47,7 +46,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function CreatorPart(props: { title: string; partId: string; buttonWidth: number }) {
+function CreatorPart(props: { title: string; partId: string }) {
   return (
     <Paper radius="md">
       <Group
@@ -65,16 +64,11 @@ function CreatorPart(props: { title: string; partId: string; buttonWidth: number
           radius="md"
           styles={(theme) => ({
             root: {
-              width: `${props.buttonWidth}%`,
-              [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-                height: 45,
-              },
+              minWidth: 250,
+              width: `40%`,
             },
             inner: {
               justifyContent: 'flex-start',
-              [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-                justifyContent: 'center',
-              },
             },
           })}
         >
@@ -97,7 +91,6 @@ export default function Creator() {
     { title: 'Dysk wewnętrzny', partId: 'internal-hard-drive' },
     { title: 'Obudowa', partId: 'case' },
   ];
-  const smallBreakpoint = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`, false);
 
   return (
     <div id="creator" className={classes.wrapper}>
@@ -107,12 +100,7 @@ export default function Creator() {
 
         <Stack mt="xl" spacing={theme.spacing.lg}>
           {parts.map((part) => (
-            <CreatorPart
-              key={part.partId}
-              title={part.title}
-              partId={part.partId}
-              buttonWidth={smallBreakpoint ? 60 : 40}
-            />
+            <CreatorPart key={part.partId} title={part.title} partId={part.partId} />
           ))}
         </Stack>
       </Container>
