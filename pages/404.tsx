@@ -46,7 +46,9 @@ export default function NotFound() {
   return (
     <Container className={classes.root}>
       <div className={classes.label}>404</div>
-      <Title className={classes.title}>Tutaj niczego nie ma</Title>
+      <Title order={2} className={classes.title}>
+        Tutaj niczego nie ma
+      </Title>
       <Text color="dimmed" size="lg" align="center" className={classes.description}>
         Strona, którą próbujesz otworzyć, nie istnieje. Możliwe, że błędnie wpisałeś adres lub strona została
         przeniesiona pod inny adres URL. Jeśli uważasz, że jest to błąd, skontaktuj się z działem pomocy technicznej.

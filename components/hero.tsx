@@ -80,7 +80,7 @@ export default function Hero() {
   return (
     <div className={classes.wrapper}>
       <Container size={700} className={classes.inner}>
-        <Title className={classes.title}>
+        <Title order={2} className={classes.title}>
           Zbuduj{' '}
           <Text component="span" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }} inherit>
             własny

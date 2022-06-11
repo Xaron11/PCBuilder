@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
+    fontSize: 40,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     color: theme.colorScheme === 'dark' ? theme.colors.gray[1] : theme.white,
     lineHeight: 1,
@@ -81,7 +82,9 @@ export default function ContactForm() {
     <div className={classes.wrapper}>
       <SimpleGrid cols={2} spacing={50} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
         <div>
-          <Title className={classes.title}>Kontakt</Title>
+          <Title order={2} className={classes.title}>
+            Kontakt
+          </Title>
           <Text className={classes.description} mt="sm" mb={30}>
             Wyślij wiadomość, aby się z nami skontaktować!
           </Text>

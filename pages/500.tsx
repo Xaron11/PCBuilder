@@ -49,7 +49,9 @@ export default function ServerError() {
     <div className={classes.root}>
       <Container>
         <div className={classes.label}>500</div>
-        <Title className={classes.title}>Coś poszło nie tak...</Title>
+        <Title order={2} className={classes.title}>
+          Coś poszło nie tak...
+        </Title>
         <Text size="lg" align="center" className={classes.description}>
           Nasze serwery nie mogły obsłużyć Twojego żądania. Spróbuj odświeżyć stronę.
         </Text>
