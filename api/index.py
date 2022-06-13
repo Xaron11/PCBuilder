@@ -53,7 +53,7 @@ async def cpu(part: str):
         raise HTTPException(status_code=404, detail="Part not found")
     data = api.retrieve(part)
     data = json.loads(data.to_json())
-    return data
+    return data[part]
 
 
 if __name__ == "__main__":
