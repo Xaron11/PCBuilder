@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition, Title } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import ThemeToggle from './themeToggle';
+import { useGlobalStyles } from '../utils/styles';
 
 const HEADER_HEIGHT = 60;
 
@@ -88,6 +89,7 @@ export default function ResponsiveHeader({ links }: ResponsiveHeaderProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
+  const { classes: globalClasses, cx: globalCx } = useGlobalStyles();
   const router = useRouter();
 
   const items = links.map((link) => (
@@ -107,8 +109,8 @@ export default function ResponsiveHeader({ links }: ResponsiveHeaderProps) {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Container className={classes.header}>
+    <Header height={HEADER_HEIGHT} className={`${classes.root} ${globalClasses.themeTransition}`}>
+      <Container className={`${classes.header} ${globalClasses.themeTransition}`}>
         <Link href="/">
           <a>
             <Image src="/logo.png" alt="logo" width="65" height="50" />

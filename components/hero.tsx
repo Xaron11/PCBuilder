@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { createStyles, Container, Text, Title, Button, Group, useMantineTheme } from '@mantine/core';
-
+import { useGlobalStyles } from '../utils/styles';
 const BREAKPOINT = '@media (max-width: 755px)';
 
 const useStyles = createStyles((theme) => ({
@@ -75,10 +75,11 @@ const useStyles = createStyles((theme) => ({
 
 export default function Hero() {
   const { classes, cx } = useStyles();
+  const { classes: globalClasses, cx: globalCx } = useGlobalStyles();
   const theme = useMantineTheme();
 
   return (
-    <div className={classes.wrapper}>
+    <div className={`${classes.wrapper} ${globalClasses.themeTransition}`}>
       <Container size={700} className={classes.inner}>
         <Title order={2} className={classes.title}>
           Zbuduj{' '}

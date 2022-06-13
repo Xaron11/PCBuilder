@@ -13,6 +13,7 @@ import {
   Stack,
 } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
+import parts from '../utils/parts';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
@@ -46,7 +47,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function CreatorPart(props: { title: string; partId: string }) {
+function PartSlot(props: { title: string; partId: string }) {
   return (
     <Paper radius="md">
       <Group
@@ -59,21 +60,23 @@ function CreatorPart(props: { title: string; partId: string }) {
           },
         })}
       >
-        <Button
-          leftIcon={<Plus />}
-          radius="md"
-          styles={(theme) => ({
-            root: {
-              minWidth: 250,
-              width: `40%`,
-            },
-            inner: {
-              justifyContent: 'flex-start',
-            },
-          })}
-        >
-          <Text size="lg">{props.title}</Text>
-        </Button>
+        <Link href={`/parts/${encodeURIComponent(props.partId)}`}>
+          <Button
+            leftIcon={<Plus />}
+            radius="md"
+            styles={(theme) => ({
+              root: {
+                minWidth: 250,
+                width: `40%`,
+              },
+              inner: {
+                justifyContent: 'flex-start',
+              },
+            })}
+          >
+            <Text size="lg">{props.title}</Text>
+          </Button>
+        </Link>
       </Group>
     </Paper>
   );
@@ -82,15 +85,6 @@ function CreatorPart(props: { title: string; partId: string }) {
 export default function Creator() {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
-  const parts = [
-    { title: 'Płyta główna', partId: 'motherboard' },
-    { title: 'Procesor (CPU)', partId: 'cpu' },
-    { title: 'Karta graficzna (GPU)', partId: 'video-card' },
-    { title: 'Pamięć RAM', partId: 'memory' },
-    { title: 'Zasilacz', partId: 'power-supply' },
-    { title: 'Dysk wewnętrzny', partId: 'internal-hard-drive' },
-    { title: 'Obudowa', partId: 'case' },
-  ];
 
   return (
     <div id="creator" className={classes.wrapper}>
@@ -99,8 +93,8 @@ export default function Creator() {
         <Divider size="lg" />
 
         <Stack mt="xl" spacing={theme.spacing.lg}>
-          {parts.map((part) => (
-            <CreatorPart key={part.partId} title={part.title} partId={part.partId} />
+          {Object.entries(parts).map((p) => (
+            <PartSlot key={p[0]} title={p[1]} partId={p[0]} />
           ))}
         </Stack>
       </Container>
