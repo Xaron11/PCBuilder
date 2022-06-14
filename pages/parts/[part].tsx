@@ -121,7 +121,10 @@ export async function getStaticProps(context: GetStaticProps & { params: { part:
   const { part } = context['params'];
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
   const res = await fetch(apiUrl + `/parts/${part}`);
-  const items: PartItem[] = await res.json();
+  console.log(res.body);
+  const data = await res.json();
+  console.log(data);
+  const items: PartItem[] = data;
   return {
     props: { part: part, items: items },
   };
