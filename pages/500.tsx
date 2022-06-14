@@ -64,3 +64,9 @@ export default function ServerError() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}

@@ -63,3 +63,9 @@ export default function NotFound() {
     </Container>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
