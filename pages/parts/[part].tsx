@@ -121,15 +121,8 @@ export async function getStaticProps(context: GetStaticProps & { params: { part:
   const { part } = context['params'];
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
   const res = await fetch(apiUrl + `/parts/${part}`);
-  console.log(res.text());
-  let data;
-  try {
-    data = await res.json();
-  } catch (error) {
-    throw new Error(`${error}\n${res.status}\n${res.text()}`);
-  }
-  console.log(data);
-  const items: PartItem[] = data;
+
+  const items: PartItem[] = await res.json();
   return {
     props: { part: part, items: items },
   };
