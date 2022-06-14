@@ -5,14 +5,16 @@ import { GetServerSidePropsContext } from 'next';
 import { getCookie, setCookies } from 'cookies-next';
 import { MantineProvider, MantineThemeOverride, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import Layout from '../components/layout';
-
-function MyApp(props: AppProps & { colorScheme: ColorScheme }) {
+import { PartsCookie } from '../types/parts';
+import { defaultParts } from '../utils/parts';
+import { PartsProvider } from '../components/partsContext';
+function MyApp(props: AppProps & { colorScheme: ColorScheme; parts: PartsCookie }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
     setColorScheme(nextColorScheme);
-    setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+    setCookies('color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
   };
 
   const myTheme: MantineThemeOverride = { colorScheme };
@@ -30,17 +32,32 @@ function MyApp(props: AppProps & { colorScheme: ColorScheme }) {
       </Head>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={myTheme} withGlobalStyles withNormalizeCSS>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <PartsProvider initialParts={props.parts}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PartsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
   );
 }
 
-MyApp.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
-  colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
-});
+type AppInitialProps = {
+  colorScheme: string | true;
+  parts: PartsCookie;
+};
+
+MyApp.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }): AppInitialProps => {
+  const colorScheme = getCookie('color-scheme', ctx) || 'light';
+  const partsCookie = getCookie('parts', ctx);
+  let parts: PartsCookie;
+  if (typeof partsCookie === 'string') {
+    parts = JSON.parse(partsCookie) as PartsCookie;
+  } else {
+    parts = { ...defaultParts };
+  }
+  return { colorScheme, parts };
+};
 
 export default MyApp;

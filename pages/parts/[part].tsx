@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { useGlobalStyles } from '../../utils/styles';
 import { useMediaQuery } from '@mantine/hooks';
-import parts from '../../utils/parts';
+import partNames from '../../utils/parts';
 import PartCard from '../../components/partCard';
 import { PartItem } from '../../types/parts';
 import { ArrowLeft } from 'tabler-icons-react';
@@ -57,7 +57,7 @@ export default function Parts(props: PartsProps) {
   const itemsPerPage = 24;
   const totalPages = Math.floor(props.items.length / itemsPerPage);
   const xsBreakpoint = useMediaQuery(`(max-width: 500px)`);
-  const partName = parts[props.part];
+  const partName = partNames[props.part];
   if (typeof partName === 'undefined') {
     //
   }
@@ -71,9 +71,11 @@ export default function Parts(props: PartsProps) {
               {partName}
             </Text>
           </Title>
-          <Button size="sm" radius="xl" variant="filled" color="gray" leftIcon={<ArrowLeft />}>
-            <Text size="lg">Powrót</Text>
-          </Button>
+          <Link href="/#creator" scroll={false}>
+            <Button component="a" size="sm" radius="xl" variant="filled" color="gray" leftIcon={<ArrowLeft />}>
+              <Text size="lg">Powrót</Text>
+            </Button>
+          </Link>
         </Group>
         <Divider size="lg" mb={30} />
         <Center mb="xl">

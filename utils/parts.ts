@@ -1,4 +1,6 @@
-const parts: {
+import { PartsCookie } from '../types/parts';
+
+const partNames: {
   [key: string]: string;
 } = {
   motherboard: 'Płyta główna',
@@ -10,4 +12,15 @@ const parts: {
   case: 'Obudowa',
 };
 
-export default parts;
+const defaultParts: PartsCookie = {
+  motherboard: null,
+  cpu: null,
+  'video-card': null,
+  memory: null,
+  'power-supply': null,
+  'internal-hard-drive': null,
+  case: null,
+};
+
+export default partNames;
+export { defaultParts };

@@ -1,19 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
-import {
-  createStyles,
-  Container,
-  Title,
-  Text,
-  Button,
-  Group,
-  useMantineTheme,
-  Divider,
-  Paper,
-  Stack,
-} from '@mantine/core';
-import { Plus } from 'tabler-icons-react';
-import parts from '../utils/parts';
+import { createStyles, Container, Title, Divider, Stack, useMantineTheme } from '@mantine/core';
+import partNames from '../utils/parts';
+import { PartsContextType, usePartsContext } from './partsContext';
+import PartSlot from './partSlot';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
@@ -47,44 +36,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function PartSlot(props: { title: string; partId: string }) {
-  return (
-    <Paper radius="md">
-      <Group
-        p="sm"
-        styles={(theme) => ({
-          root: {
-            [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-              justifyContent: 'center',
-            },
-          },
-        })}
-      >
-        <Link href={`/parts/${encodeURIComponent(props.partId)}`}>
-          <Button
-            leftIcon={<Plus />}
-            radius="md"
-            styles={(theme) => ({
-              root: {
-                minWidth: 250,
-                width: `40%`,
-              },
-              inner: {
-                justifyContent: 'flex-start',
-              },
-            })}
-          >
-            <Text size="lg">{props.title}</Text>
-          </Button>
-        </Link>
-      </Group>
-    </Paper>
-  );
-}
-
 export default function Creator() {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
+
+  const { parts, setParts } = usePartsContext() as PartsContextType;
 
   return (
     <div id="creator" className={classes.wrapper}>
@@ -93,8 +49,8 @@ export default function Creator() {
         <Divider size="lg" />
 
         <Stack mt="xl" spacing={theme.spacing.lg}>
-          {Object.entries(parts).map((p) => (
-            <PartSlot key={p[0]} title={p[1]} partId={p[0]} />
+          {Object.entries(partNames).map((p) => (
+            <PartSlot key={p[0]} partId={p[0]} partName={p[1]} partItem={parts[p[0]]} />
           ))}
         </Stack>
       </Container>

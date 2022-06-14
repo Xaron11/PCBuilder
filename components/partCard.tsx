@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { CurrencyDollar } from 'tabler-icons-react';
 import { createStyles, Text, Button, Group, useMantineTheme, Divider, Stack, Card, Badge, Center } from '@mantine/core';
@@ -6,6 +7,7 @@ import { PartItem, CPUItem, MotherboardItem } from '../types/parts';
 import { CPUProperties, MotherboardProperties } from './partProperties';
 import { useMediaQuery } from '@mantine/hooks';
 import { useGlobalStyles } from '../utils/styles';
+import { usePartsContext, PartsContextType } from './partsContext';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -19,12 +21,47 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+export function PartInformation(props: { item: PartItem; type: string }) {
+  const xsBreakpoint = useMediaQuery(`(max-width: 550px)`);
+  const price = props.item['price'][1];
+
+  return (
+    <>
+      {props.type === 'cpu' && <CPUProperties item={props.item as CPUItem} />}
+      {props.type === 'motherboard' && <MotherboardProperties item={props.item as MotherboardItem} />}
+      <Divider />
+      <Group position="apart">
+        <Text size={xsBreakpoint ? 'md' : 'lg'} weight={700}>
+          Cena
+        </Text>
+        <Badge
+          sx={{ paddingLeft: 10 }}
+          size={xsBreakpoint ? 'lg' : 'xl'}
+          color="teal"
+          leftSection={
+            <Center>
+              <CurrencyDollar size={20} strokeWidth={3} />
+            </Center>
+          }
+        >
+          {price === '0.00' ? '-' : price}
+        </Badge>
+      </Group>
+    </>
+  );
+}
+
 export default function PartCard(props: { item: PartItem; type: string }) {
   const { classes, cx } = useStyles();
   const { classes: globalClasses, cx: globalCx } = useGlobalStyles();
-  const theme = useMantineTheme();
-  const xsBreakpoint = useMediaQuery(`(max-width: 550px)`);
-  const price = props.item['price'][1];
+  const router = useRouter();
+  const { parts, setParts } = usePartsContext() as PartsContextType;
+
+  function handlePartAdd(e: React.MouseEvent) {
+    e.preventDefault();
+    setParts({ ...parts, [props.type]: props.item });
+    router.push('/#creator');
+  }
 
   return (
     <Card className={`${classes.card} ${globalClasses.themeTransition}`} shadow="sm" p="lg" radius="md">
@@ -48,28 +85,9 @@ export default function PartCard(props: { item: PartItem; type: string }) {
           alt="Zdjęcie poglądowe"
         />
 
-        {props.type === 'cpu' && <CPUProperties item={props.item as CPUItem} />}
-        {props.type === 'motherboard' && <MotherboardProperties item={props.item as MotherboardItem} />}
-        <Divider />
-        <Group position="apart">
-          <Text size={xsBreakpoint ? 'md' : 'lg'} weight={700}>
-            Cena
-          </Text>
-          <Badge
-            sx={{ paddingLeft: 10 }}
-            size={xsBreakpoint ? 'lg' : 'xl'}
-            color="teal"
-            leftSection={
-              <Center>
-                <CurrencyDollar size={20} strokeWidth={3} />
-              </Center>
-            }
-          >
-            {price === '0.00' ? '-' : price}
-          </Badge>
-        </Group>
+        <PartInformation item={props.item} type={props.type} />
 
-        <Button variant="outline" color="blue" fullWidth>
+        <Button variant="outline" color="blue" fullWidth onClick={handlePartAdd}>
           <Text>Dodaj</Text>
         </Button>
       </Stack>

@@ -23,9 +23,10 @@ export interface MotherboardItem extends PartItem {
 export type PartsCookie = {
   motherboard: MotherboardItem | null;
   cpu: CPUItem | null;
-  'video-card': null;
-  memory: null;
-  'power-supply': null;
-  'internal-hard-drive': null;
-  case: null;
+  'video-card': PartItem | null;
+  memory: PartItem | null;
+  'power-supply': PartItem | null;
+  'internal-hard-drive': PartItem | null;
+  case: PartItem | null;
+  [key: string]: PartItem | null;
 };
