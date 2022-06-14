@@ -8,7 +8,7 @@ export default class _Document extends Document {
 
   render() {
     return (
-      <Html lang="pl">
+      <Html lang="pl" style={{ scrollBehavior: 'smooth' }}>
         <Head />
         <body>
           <Main />
