@@ -94,18 +94,23 @@ export default function Hero() {
         </Text>
 
         <Group className={classes.controls}>
-          <Link href="/#creator">
-            <Button size="xl" className={classes.control} variant="gradient" gradient={{ from: 'blue', to: 'cyan' }}>
+          <Link href="/#creator" passHref>
+            <Button
+              component="a"
+              size="xl"
+              className={classes.control}
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'cyan' }}
+            >
               Start
             </Button>
           </Link>
-
           <Link href="/inspirations">
             <Button
               component="a"
               size="xl"
-              variant="outline"
               className={cx(classes.control, classes.inspirationalControl)}
+              variant="outline"
               color={theme.colorScheme === 'dark' ? 'gray' : 'dark'}
             >
               Inspiracje
