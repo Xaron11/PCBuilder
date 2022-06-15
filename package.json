@@ -16,7 +16,7 @@
   "dependencies": {
     "@mantine/core": "^4.2.7",
     "@mantine/hooks": "^4.2.7",
-    "@mantine/next": "^4.2.7",
+    "@mantine/next": "^4.2.9",
     "@mantine/ssr": "^4.2.7",
     "cookies-next": "^2.0.4",
     "next": "12.1.6",
