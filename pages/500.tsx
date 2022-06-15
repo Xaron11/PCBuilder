@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { createStyles, Title, Text, Button, Container, Group } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
@@ -44,6 +45,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function ServerError() {
   const { classes } = useStyles();
+  const router = useRouter();
 
   return (
     <div className={classes.root}>
@@ -56,7 +58,7 @@ export default function ServerError() {
           Nasze serwery nie mogły obsłużyć Twojego żądania. Spróbuj odświeżyć stronę.
         </Text>
         <Group position="center">
-          <Button variant="white" size="md">
+          <Button variant="white" size="md" onClick={() => router.reload()}>
             Odśwież stronę
           </Button>
         </Group>
