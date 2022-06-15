@@ -87,18 +87,16 @@ interface ResponsiveHeaderProps {
 
 export default function ResponsiveHeader({ links }: ResponsiveHeaderProps) {
   const [opened, toggleOpened] = useBooleanToggle(false);
-  const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
   const { classes: globalClasses, cx: globalCx } = useGlobalStyles();
   const router = useRouter();
-
+  const route = router.route;
   const items = links.map((link) => (
     <Link key={link.label} href={link.link}>
       <a
-        className={cx(classes.link, { [classes.linkActive]: active === link.link })}
+        className={cx(classes.link, { [classes.linkActive]: route === link.link })}
         onClick={(event) => {
           event.preventDefault();
-          setActive(link.link);
           toggleOpened(false);
           router.push(link.link);
         }}
