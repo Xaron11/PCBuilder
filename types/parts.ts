@@ -8,7 +8,7 @@ export interface CPUItem extends PartItem {
   cores: number;
   base_clock: { cycles: number };
   tdp: number;
-  integrated_graphics: string;
+  integrated_graphics: string | null;
   multithreading: boolean;
 }
 
