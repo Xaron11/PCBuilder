@@ -71,7 +71,7 @@ export default function Parts(props: PartsProps) {
               {partName}
             </Text>
           </Title>
-          <Link href="/#creator" scroll={false}>
+          <Link href="/creator" scroll={false}>
             <Button component="a" size="sm" radius="xl" variant="filled" color="gray" leftIcon={<ArrowLeft />}>
               <Text size="lg">Powrót</Text>
             </Button>

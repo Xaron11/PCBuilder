@@ -94,7 +94,7 @@ export default function Hero() {
         </Text>
 
         <Group className={classes.controls}>
-          <Link href="/#creator" passHref>
+          <Link href="/creator" passHref>
             <Button
               component="a"
               size="xl"

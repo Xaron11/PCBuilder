@@ -1,15 +1,14 @@
 import React from 'react';
 import { createStyles, Container, Title, Divider, Stack, useMantineTheme } from '@mantine/core';
 import partNames from '../utils/parts';
-import { PartsContextType, usePartsContext } from './partsContext';
-import PartSlot from './partSlot';
+import { PartsContextType, usePartsContext } from '../components/partsContext';
+import PartSlot from '../components/partSlot';
 
 const BREAKPOINT = '@media (max-width: 755px)';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[3],
-    borderRadius: theme.radius.md,
   },
 
   inner: {
@@ -43,9 +42,11 @@ export default function Creator() {
   const { parts, setParts } = usePartsContext() as PartsContextType;
 
   return (
-    <div id="creator" className={classes.wrapper}>
+    <div className={classes.wrapper}>
       <Container size={700} className={classes.inner}>
-        <Title className={classes.title}>Kreator</Title>
+        <Title order={2} className={classes.title}>
+          Kreator
+        </Title>
         <Divider size="lg" />
 
         <Stack mt="xl" spacing={theme.spacing.lg}>
@@ -56,4 +57,10 @@ export default function Creator() {
       </Container>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
 }

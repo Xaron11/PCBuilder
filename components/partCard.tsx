@@ -60,7 +60,7 @@ export default function PartCard(props: { item: PartItem; type: string }) {
   function handlePartAdd(e: React.MouseEvent) {
     e.preventDefault();
     setParts({ ...parts, [props.type]: props.item });
-    router.push('/#creator');
+    router.push('/creator');
   }
 
   return (

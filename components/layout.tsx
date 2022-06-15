@@ -11,7 +11,8 @@ const useStyles = createStyles((theme) => ({
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const links = [
-    { link: '/#creator', label: 'Kreator' },
+    { link: '/', label: 'Strona Główna' },
+    { link: '/creator', label: 'Kreator' },
     { link: '/inspirations', label: 'Inspiracje' },
   ];
   const { classes: globalClasses, cx: globalCx } = useGlobalStyles();
